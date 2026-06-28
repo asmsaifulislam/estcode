@@ -167,8 +167,8 @@ def home_page():
                         f'<span class="badge {badge_class}" style="{badge_pos}:12px">{p["badge"]}</span></div>'
                         f'<div class="product-info"><div class="product-cat">{p["category"]}</div>'
                         f'<div class="product-name">{p["name"]}</div>'
-                        f'<div class="product-price">${p["price"]}{f" <span class=product-oprice>${p["original_price"]}</span>" if p.get("original_price") else ""}</div>'
-                        f'<div class="product-rating">★ {p["rating"]} ({p["reviews"]})</div></div>', unsafe_allow_html=True)
+                         f'<div class="product-price">${p["price"]}{(" <span class=product-oprice>$" + str(p["original_price"]) + "</span>") if p.get("original_price") else ""}</div>'
+                         f'<div class="product-rating">★ {p["rating"]} ({p["reviews"]})</div></div>', unsafe_allow_html=True)
             if st.button("Quick Add", key=f"ha{p['id']}", use_container_width=True):
                 st.session_state.cart.append({"id": p["id"], "name": p["name"], "price": p["price"],
                     "image": p["image"], "size": p["sizes"][0], "qty": 1})
@@ -208,7 +208,7 @@ def shop_page():
             st.markdown(f'<div style="position:relative"><img src="{p["image"]}" class="product-img">{badge_html}</div>'
                         f'<div class="product-info"><div class="product-cat">{p["category"]}</div>'
                         f'<div class="product-name">{p["name"]}</div>'
-                        f'<div class="product-price">${p["price"]}{f" <span class=product-oprice>${p["original_price"]}</span>" if p.get("original_price") else ""}</div>'
+                         f'<div class="product-price">${p["price"]}{(" <span class=product-oprice>$" + str(p["original_price"]) + "</span>") if p.get("original_price") else ""}</div>'
                         f'<div class="product-rating">★ {p["rating"]} ({p["reviews"]})</div></div>', unsafe_allow_html=True)
             c1, c2 = st.columns(2)
             with c1:
@@ -288,7 +288,7 @@ def cart_page():
     st.markdown(f"""
     <div style="background:#f8f8f8;padding:24px;border-radius:12px;margin-top:20px">
         <div style="display:flex;justify-content:space-between"><span style="color:#666">Subtotal</span><span>${total:.2f}</span></div>
-        <div style="display:flex;justify-content:space-between"><span style="color:#666">Shipping</span><span>{"Free" if shipping == 0 else f"${shipping:.2f}"}</span></div>
+        <div style="display:flex;justify-content:space-between"><span style="color:#666">Shipping</span><span>{"Free" if shipping == 0 else ("$" + str(round(shipping, 2)))}</span></div>
         <div style="display:flex;justify-content:space-between"><span style="color:#666">Tax</span><span>${tax:.2f}</span></div>
         <div style="display:flex;justify-content:space-between;font-weight:700;font-size:1.2rem;border-top:1px solid #ddd;padding-top:12px;margin-top:12px">
             <span>Total</span><span>${grand_total:.2f}</span>
@@ -368,7 +368,7 @@ def checkout_page():
         st.markdown(f"""
         <div style="border-top:1px solid #eee;padding-top:12px">
             <div style="display:flex;justify-content:space-between;font-size:0.9rem"><span>Subtotal</span><span>${total:.2f}</span></div>
-            <div style="display:flex;justify-content:space-between;font-size:0.9rem"><span>Shipping</span><span>{"Free" if shipping == 0 else f"${shipping:.2f}"}</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:0.9rem"><span>Shipping</span><span>{"Free" if shipping == 0 else ("$" + str(round(shipping, 2)))}</span></div>
             <div style="display:flex;justify-content:space-between;font-size:0.9rem"><span>Tax</span><span>${tax:.2f}</span></div>
             <div style="display:flex;justify-content:space-between;font-weight:700;font-size:1.1rem;border-top:1px solid #ddd;padding-top:12px;margin-top:8px">
                 <span>Total</span><span>${(total + shipping + tax):.2f}</span>
